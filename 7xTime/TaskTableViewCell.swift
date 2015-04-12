@@ -39,7 +39,9 @@ class TaskTableViewCell: UITableViewCell {
         self.addSubview(mPriorityLabel)
         self.addSubview(textFieldForTitle)
         self.addSubview(mCheckButton)
+        mCheckButton.addTarget(self, action: "clickCheckButton:", forControlEvents: .TouchUpInside)
         super.awakeFromNib()
+        
         // Initialization code
     }
 
@@ -73,11 +75,11 @@ class TaskTableViewCell: UITableViewCell {
         self.dataForCell = dataForCell
         self.indexPath = indexPathForCell
         self.textFieldForTitle.text = dataForCell.valueForKey("title") as? String
-        var priority = NSString(format: "%d", dataForCell.valueForKey("priority") as Int!)
+        var priority = NSString(format: "%d", dataForCell.valueForKey("priority") as! Int!)
         println(priority)
-        self.mPriorityLabel.text = priority
+        self.mPriorityLabel.text = priority as String
         self.mPriorityLabel.textAlignment = .Center
-        var people = dataForCell.valueForKey("people") as String?
+        var people = dataForCell.valueForKey("people") as! String?
         if (people != nil) {
             self.mPeopleLabelValue.text = people
         } else {
@@ -90,4 +92,9 @@ class TaskTableViewCell: UITableViewCell {
             self.cheked = false
         }
     }
+}
+
+
+protocol CheckDelegate: NSObjectProtocol {
+    func clickCheckButton(button: UIButton)
 }

@@ -16,7 +16,7 @@ class CoreDataHelper {
     lazy var applicationDocumentsDirectory: NSURL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "cuiyu._xTime" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return urls[urls.count-1] as NSURL
+        return urls[urls.count-1] as! NSURL
         }()
     
     lazy var managedObjectModel: NSManagedObjectModel = {
@@ -44,7 +44,7 @@ class CoreDataHelper {
             dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
             dict[NSLocalizedFailureReasonErrorKey] = failureReason
             dict[NSUnderlyingErrorKey] = error
-            error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
+            error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict as [NSObject : AnyObject])
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog("Unresolved error \(error), \(error!.userInfo)")
@@ -69,7 +69,7 @@ class CoreDataHelper {
         var request = NSFetchRequest()
         request.entity = NSEntityDescription.entityForName("Section", inManagedObjectContext: self.context)
         // @表示占位符
-        var predicate : NSPredicate =  NSPredicate(format: "sectionNumber == %@", sectionNumber)!
+        var predicate : NSPredicate =  NSPredicate(format: "sectionNumer == %@", sectionNumber)
         request.predicate = predicate
         var error : NSError? = nil
         var objs : NSArray = context.executeFetchRequest(request, error: &error)!
@@ -78,15 +78,15 @@ class CoreDataHelper {
         }
         var sectionName : String?
         for object : AnyObject in objs {
-            sectionName = (object.valueForKey("sectionTitle") as String)
+//            sectionName = (object.valueForKey("sectionTitle") as! String)
         }
         return sectionName!
     }
     
     func insertDataToSection(number : NSInteger, title : NSString) {
         println(applicationDocumentsDirectory)
-        var sectionData = NSEntityDescription.insertNewObjectForEntityForName("Section", inManagedObjectContext: context) as Section
-        sectionData.sectionTitle = title
+        var sectionData = NSEntityDescription.insertNewObjectForEntityForName("Section", inManagedObjectContext: context) as! Section
+        sectionData.sectionTitle = title as String
         sectionData.sectionNumber = number
         
         saveContext()
@@ -96,7 +96,7 @@ class CoreDataHelper {
         var request = NSFetchRequest()
         request.entity = NSEntityDescription.entityForName("TaskCellData", inManagedObjectContext: self.context)
         // @表示占位符
-        var predicate : NSPredicate =  NSPredicate(format: "section == %d", section)!
+        var predicate : NSPredicate =  NSPredicate(format: "section == %d", section)
         request.predicate = predicate
         var error : NSError? = nil
         var objs : NSArray = context.executeFetchRequest(request, error: &error)!
@@ -111,7 +111,7 @@ class CoreDataHelper {
         println("getDataOfCell   ", cellIndexPath.row, "     ",  cellIndexPath.section)
         var request = NSFetchRequest()
         request.entity = NSEntityDescription.entityForName("TaskCellData", inManagedObjectContext: self.context)
-        var predicate : NSPredicate =  NSPredicate(format: "row == %d AND section == %d",cellIndexPath.row , cellIndexPath.section)!
+        var predicate : NSPredicate =  NSPredicate(format: "row == %d AND section == %d",cellIndexPath.row , cellIndexPath.section)
         request.predicate = predicate
         var error : NSError? = nil
         var objs : NSArray = context.executeFetchRequest(request, error: &error)!
@@ -130,7 +130,7 @@ class CoreDataHelper {
         updateRowInSection(indexPathForCell, insert: true)
         
         println(applicationDocumentsDirectory)
-        var task = NSEntityDescription.insertNewObjectForEntityForName("TaskCellData", inManagedObjectContext: context) as TaskCellData
+        var task = NSEntityDescription.insertNewObjectForEntityForName("TaskCellData", inManagedObjectContext: context) as! TaskCellData
         task.people = people
         task.time = time
         task.title = title
@@ -149,7 +149,7 @@ class CoreDataHelper {
     
     func deleteDataFromSQL(cellIndexPath : NSIndexPath) {
         var taskToDelete: AnyObject = getDataOfCell(cellIndexPath)
-        self.context.deleteObject(taskToDelete as NSManagedObject)
+        self.context.deleteObject(taskToDelete as! NSManagedObject)
         saveContext()
         updateRowInSection(cellIndexPath, insert: false)
     }
@@ -158,7 +158,7 @@ class CoreDataHelper {
         var request = NSFetchRequest()
         request.entity = NSEntityDescription.entityForName("TaskCellData", inManagedObjectContext: self.context)
         // @表示占位符
-        var predicate : NSPredicate =  NSPredicate(format: queryString)!
+        var predicate : NSPredicate =  NSPredicate(format: queryString as String)
         println(queryString)
         request.predicate = predicate
         var error : NSError? = nil
@@ -167,8 +167,8 @@ class CoreDataHelper {
         var i = 0
         var task : TaskCellData!
         for object : AnyObject in objs {
-            object.setValue(newValue, forKey: key)
-            println(key , " = " , object.valueForKey(key), "    " ,newValue)
+            object.setValue(newValue, forKey: key as String)
+            println(key , " = " , object.valueForKey(key as String), "    " ,newValue)
         }
         saveContext()
     }

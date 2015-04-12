@@ -19,14 +19,16 @@ class TaskTableViewController: UITableViewController {
         sectionData.insertDataToSection(0, title: "Todo")
         sectionData.insertDataToSection(1, title: "Doing")
         sectionData.insertDataToSection(2, title: "Done")
-//                sectionData.insertDataToTaskCellData("Cui Yu", time: NSDate(), title: "First Task 1", priority: 1, section: 0, row: 0)
-//                sectionData.insertDataToTaskCellData("Cui Yu", time: NSDate(), title: "First Task 1", priority: 1, section: 1, row: 0)
-//                sectionData.insertDataToTaskCellData("Cui Yu", time: NSDate(), title: "First Task 1", priority: 1, section: 2, row: 0)
+                sectionData.insertDataToTaskCellData("Cui Yu", time: NSDate(), title: "First Task 1", priority: 1, section: 0, row: 0)
+                sectionData.insertDataToTaskCellData("Cui Yu", time: NSDate(), title: "First Task 1", priority: 1, section: 1, row: 0)
+                sectionData.insertDataToTaskCellData("Cui Yu", time: NSDate(), title: "First Task 1", priority: 1, section: 2, row: 0)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.navigationItem.rightBarButtonItem = self.editButtonItem()
+//        self.tableView.estimatedRowHeight = 44.0;
+//        self.tableView.rowHeight = UITableViewAutomaticDimension;
     }
     
     override func didReceiveMemoryWarning() {
@@ -58,7 +60,7 @@ class TaskTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> TaskTableViewCell {
         var nib : UINib = UINib(nibName: "TaskTableViewCell", bundle: nil)
         tableView.registerNib(nib, forCellReuseIdentifier: "taskTableViewCellIndentifier")
-        let cell = tableView.dequeueReusableCellWithIdentifier("taskTableViewCellIndentifier", forIndexPath: indexPath) as TaskTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("taskTableViewCellIndentifier", forIndexPath: indexPath) as! TaskTableViewCell
         let section = indexPath.section
         var dataForCell = sectionData.getDataOfCell(indexPath) as? TaskCellData
         cell.loadCell(indexPath, dataForCell: dataForCell!)
@@ -74,6 +76,7 @@ class TaskTableViewController: UITableViewController {
         }
         var hideButtonForCell : Bool = cell.hideButton
         cell.hideButton(hideButtonForCell)
+        
         // Configure the cell...
         return cell
     }
@@ -87,7 +90,7 @@ class TaskTableViewController: UITableViewController {
         label.textColor = UIColor.blackColor()
         // set the label frame or it will be not shown in the view
         label.frame = CGRectMake(0, 0, 280, 30)
-        var button : UIButton = UIButton.buttonWithType(.System) as UIButton
+        var button : UIButton = UIButton.buttonWithType(.System) as! UIButton
         button.frame = CGRectMake(290, 0, 40, 30)
         button.setTitle("Add", forState: .Normal)
         button.tag = section
@@ -143,7 +146,7 @@ class TaskTableViewController: UITableViewController {
     }
     
     func taskCellForRowAtIndexPath(indexPath : NSIndexPath) -> TaskTableViewCell {
-        return self.tableView.cellForRowAtIndexPath(indexPath) as TaskTableViewCell
+        return self.tableView.cellForRowAtIndexPath(indexPath) as! TaskTableViewCell
     }
     
     // Override to support rearranging the table view.
@@ -202,7 +205,7 @@ class TaskTableViewController: UITableViewController {
     func addNewTask(button : UIButton) {
         var storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         // get the data through the tag of button
-        var newTaskView : NewTaskViewController = storyBoard.instantiateViewControllerWithIdentifier("NewTaskView") as NewTaskViewController
+        var newTaskView : NewTaskViewController = storyBoard.instantiateViewControllerWithIdentifier("NewTaskView") as! NewTaskViewController
         newTaskView.taskSection = button.tag
         // Must modify the same taskSection(Core Data), or it will be merge confick.
         newTaskView.sectionData = self.sectionData

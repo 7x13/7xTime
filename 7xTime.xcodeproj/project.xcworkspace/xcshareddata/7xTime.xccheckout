@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D5204782-7521-47D4-ADEE-D70FD9463B26</string>
+	<key>IDESourceControlProjectName</key>
+	<string>7xTime</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>A0B22E73042530AC57B834E506B1D70F30023AEB</key>
+		<string>https://github.com/7x13/7xTime.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>7xTime.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>A0B22E73042530AC57B834E506B1D70F30023AEB</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/7x13/7xTime.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>A0B22E73042530AC57B834E506B1D70F30023AEB</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>A0B22E73042530AC57B834E506B1D70F30023AEB</string>
+			<key>IDESourceControlWCCName</key>
+			<string>7xTime</string>
+		</dict>
+	</array>
+</dict>
+</plist>
